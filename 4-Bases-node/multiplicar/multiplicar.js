@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-let crearArchivo = (base) => {
+const crearArchivo = (base, listar = false) => {
     return new Promise((resolve, reject) => {
         if(!Number(base)){
             reject(`${base} no es un número.`);
@@ -8,8 +8,15 @@ let crearArchivo = (base) => {
         }
         let datos = '';
 
+        if (listar) {
+            console.log("======================");
+            console.log("     Tabla del:", base);
+            console.log("======================");
+        }
         for( let i = 1; i<=10; i++){
-            console.log(base*i);
+            if (listar) {
+                console.log(`     ${base} * ${i} = ${base*i}`);
+            }           
             datos += `${base} * ${i} = ${base*i}`;
             datos += `\n`;
         }
@@ -18,7 +25,7 @@ let crearArchivo = (base) => {
 
         // check if directory exists
         if (fs.existsSync(dir)) {
-            console.log('Directory exists!');
+            //console.log('Directory exists!');
         } else {
             fs.mkdirSync(dir, {
                 recursive: true
