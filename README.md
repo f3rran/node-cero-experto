@@ -1,2 +1,2 @@
-# node-cero-experto
-Ejercicios del curo Node: DE cero a experto de Fernando Herrera
+# Node: De cero a experto
+Ejercicios del curo Node: De cero a experto de Fernando Herrera: https://www.udemy.com/course/node-de-cero-a-experto/
