@@ -1,0 +1,16 @@
+{
+  "name": "5-aplicacion-tareas",
+  "version": "1.0.0",
+  "description": "Una simple aplicación de tareas por terminal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "uuid": "^8.3.2"
+  }
+}
