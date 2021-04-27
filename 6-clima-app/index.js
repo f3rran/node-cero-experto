@@ -1,4 +1,4 @@
-const { leerInput, pausa, inquirerMenu } = require("./helpers/inquirer");
+const { leerInput, pausa, inquirerMenu, listarLugares } = require("./helpers/inquirer");
 const Busquedas = require("./models/busquedas");
 
 
@@ -14,22 +14,35 @@ const main = async () => {
             case 1:
                 //Buscar ciudad
                 //1.- Mostrar mensaje
-                const lugar = await leerInput('Ciudad: ');
-                await busquedas.buscarCiudad(lugar);
+                const terminoBusqueda = await leerInput('Ciudad: ');
                 //2.- Buscar lugares
+                const lugares = await busquedas.buscarCiudad(terminoBusqueda);
                 //3.- Seleccionar el lugar
+                const idSeleccionado = await listarLugares(lugares);
+                if (idSeleccionado === '0') {
+                    continue;
+                }
+                //Guardar en DB
+                const lugarSeleccionado = lugares.find( l => l.id === idSeleccionado);
+                busquedas.agregarHistorial(lugarSeleccionado.nombre);
                 //4.- Datos del clima
+                const clima = await busquedas.climaLugar(lugarSeleccionado.lat, lugarSeleccionado.lng)
                 //5.- Mostrar resultados
                 console.log('\nInformación de la ciudad\n'.green);
-                console.log('Ciudad: ', );
-                console.log('Latitud: ', );
-                console.log('Longitud: ', );
-                console.log('Temperatura: ', );
-                console.log('T. Mínima: ', );
-                console.log('T. Máxima: ', );
+                console.log('Ciudad: ', lugarSeleccionado.nombre);
+                console.log('Latitud: ', lugarSeleccionado.lat);
+                console.log('Longitud: ', lugarSeleccionado.lng);
+                console.log('Temperatura: ',clima.temp+" ºC" );
+                console.log('T. Mínima: ', clima.min+" ºC");
+                console.log('T. Máxima: ', clima.max+" ºC");
+                console.log('Descripción clima: ', clima.desc);
                 break;
             case 2:
                 //Historial
+                busquedas.historialCapitalziado.forEach( (lugar,i) => {
+                    const idx = `${i+1}.`.green;
+                    console.log(`${idx} ${lugar}`);
+                });
                 break;
     
         }
